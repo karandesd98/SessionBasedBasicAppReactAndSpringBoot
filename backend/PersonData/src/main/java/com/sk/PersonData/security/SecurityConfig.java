@@ -38,16 +38,13 @@ public class SecurityConfig {
     @Bean
     public AuthenticationSuccessHandler customSuccessHandler() {
         return (request, response, authentication) -> {
-            // Get the authenticated user
-            Object principal = authentication.getPrincipal();
+
             // Set custom data in session
             HttpSession session = request.getSession();
-            session.setAttribute("user", principal); // or any custom object
-            session.setAttribute("customData", "someValue"); // example
+            commonFunctionlityClass.setSessionValue(session);
 
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/json");
-
 
             Map<String, Object> data = new HashMap<>();
             data.put("message", "Login successful");

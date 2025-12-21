@@ -60,12 +60,13 @@ public class LoginController {
     @PostMapping("/addTransaction.json")
     public ResponseEntity<String> addTransaction(HttpSession session,@Valid @RequestBody ExpenseDao expenseDao){
 
-        MyUser user = CommonFunctionlityClass.getUser(session);
+        MyUser user = (MyUser) session.getAttribute("user");
         System.out.println(user);
         UserExpense userExpense = new UserExpense();
         userExpense.setAmount(expenseDao.getAmount());
         userExpense.setDate(expenseDao.getDate());
         userExpense.setDescription(expenseDao.getDescription());
+        userExpense.setUser(user);
         UserExpense   userExpense1 =   userExpenseRepo.save(userExpense);
         String resMsg="";
         if(userExpense1.getUserExpenseId()!=null){
@@ -77,10 +78,22 @@ public class LoginController {
         return ResponseEntity.status(HttpStatus.OK).body(resMsg);
     }
 
-    @GetMapping("/getAllTransaction.json")
-    public ResponseEntity<List<UserExpense>> getAllTransactions(){
-        List<UserExpense> listOfAllTransaction =   userExpenseRepo.findAll();
-        return ResponseEntity.ok(listOfAllTransaction);
+    private final Gson gson = new Gson();
+    @GetMapping(path = "/getAllTransaction.json", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getAllTransactions(HttpSession session){
+        JsonArray array = new JsonArray();
+        MyUser user = (MyUser) session.getAttribute("user");
+        List<UserExpense> listOfAllTransaction =   userExpenseRepo.getAllByUserId(user.getMyUserId());
+        for(UserExpense uexp : listOfAllTransaction){
+            JsonObject transactionList = new JsonObject();
+            transactionList.addProperty("userExpenseId", uexp.getUserExpenseId());
+            transactionList.addProperty("amount", uexp.getAmount());
+            transactionList.addProperty("description", uexp.getDescription());
+            transactionList.addProperty("date", uexp.getDate().toString());
+            array.add(transactionList);
+        }
+        String json = gson.toJson(array);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(json);
     }
 
     private final String uploadDir = "uploads/";
