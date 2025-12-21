@@ -1,6 +1,7 @@
 package com.sk.PersonData.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sk.PersonData.CommonUtility.CommonFunctionlityClass;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private CommonFunctionlityClass commonFunctionlityClass;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 

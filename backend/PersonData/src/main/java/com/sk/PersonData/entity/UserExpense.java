@@ -21,6 +21,17 @@ public class UserExpense {
     @Column(name="DATE")
     private LocalDate date;
 
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private MyUser user;
+
+    public MyUser getUser() {
+        return user;
+    }
+
+    public void setUser(MyUser user) {
+        this.user = user;
+    }
 
     public Integer getUserExpenseId() {
         return userExpenseId;
