@@ -67,7 +67,7 @@ public class MyUser {
         this.name = name;
     }
 
-    String getAddress() {
+    public String getAddress() {
         return address;
     }
 

@@ -9,6 +9,7 @@ import RegisterCmp from './mycomponent/RegisterCmp';
 import AddTransaction from './mycomponent/AddTransaction';
 import HomeLayout from './mycomponent/HomeLayout';
 import AddImages from './mycomponent/AddImages';
+import AllUsers from './mycomponent/AllUsers';
 
 
 function App() {
@@ -23,8 +24,9 @@ function App() {
               <Route index element={<ProtectedRoute><HomeCmp/></ProtectedRoute>} />
               <Route path="transactions" element={<ProtectedRoute><AddTransaction /></ProtectedRoute>} /> 
               <Route path="addImages" element={<ProtectedRoute><AddImages/></ProtectedRoute>} /> 
+              <Route path="allUsers" element={<ProtectedRoute><AllUsers/></ProtectedRoute>} /> 
+              <Route path="addNewUser" element={<ProtectedRoute><RegisterCmp/></ProtectedRoute>} />
             </Route>
-
           </Routes>
        </div>
   );

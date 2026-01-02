@@ -68,6 +68,21 @@ const navigate = useNavigate();
         </div>
 
       </div>
+
+      <div className="row g-4 mt-4">
+           <div className="col-md-3">
+          <div className="card text-center shadow-sm">
+            <div className="card-body">
+              <div className="mb-3">
+                <i className="bi bi-file-earmark-text" style={{ fontSize: "2rem", color: "#2980b9" }}></i>
+              </div>
+              <h5 className="card-title">View All Users</h5>
+              <p className="card-text">Manipulate Your Users</p>
+              <button className="btn btn-primary" onClick={() => navigate("allUsers")}>View ALl</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
       <Outlet />
